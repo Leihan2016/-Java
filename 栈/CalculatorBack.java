@@ -1,5 +1,4 @@
-﻿import java.util.*;
-//后缀表达式计算器
+import java.util.*;
 public class CalculatorBack 
 {
 	public static void main(String[] args) 
@@ -8,7 +7,7 @@ public class CalculatorBack
 		//例如: (3+4)×5-6 对应的后缀表达式就是 3 4 + 5 × 6 - , 针对后缀表达式求值步骤如下:
 
 		MiddleToLast midLast = new MiddleToLast();
-		//CalculatorStack cal = new CalculatorStack("3 4 + 50 * 6 - ");
+		CalculatorStack cal = new CalculatorStack(midLast.returnRe(), midLast.express);
 		//CalculatorStack cal = new CalculatorStack("34+5*6-");
 	}
 }
@@ -23,6 +22,7 @@ class MiddleToLast
 {
 	private Stack<String> oper;
 	private Stack<String> number;
+	public String express;
 	public MiddleToLast()
 	{
 		oper = new Stack<>();
@@ -41,15 +41,16 @@ class MiddleToLast
 	{
 		Scanner sc = new Scanner(System.in);
 		System.out.println("请输入计算表达式：");
-		String express = sc.next();
+		express = sc.next();
 		char temp = ' ';
-		int back = 0;
+		int back = 0;//back作为 多位数 substring 的起点 
 		for(int i = 0; i < express.length(); i++)
 		{
 			temp = express.charAt(i);
 			if(judgeOper(temp))
 			{
-				back = i+1;
+				//------------------- 
+				back = i+1;  //如果temp是符号，则back往后移动一位
 				while(true)
 				{
 					//符号栈为空 或者 符号为左括号
@@ -67,7 +68,7 @@ class MiddleToLast
 						break;
 					}else if(temp == ')')//等于右括号
 					{
-						while(true)
+						while(true)//如果是右括号 ，循环遍历 直到遇到左括号 
 						{
 							if(oper.peek().equals("("))
 							{
@@ -78,6 +79,7 @@ class MiddleToLast
 								number.push(oper.pop());
 							}
 						}
+						break;
 					}else
 					{
 						number.push(oper.pop());
@@ -85,12 +87,23 @@ class MiddleToLast
 				}
 			}else
 			{
-				if(judgeOper(express.charAt(i+1)))
+				//表达式最后的数字入栈操作
+				if(i == express.length()-1)
 				{
-					number.push(express.substring(back,i));
-					System.out.println("入栈为："+number.peek());
-					back = i+1;
-				}
+					number.push(express.substring(back,i+1));
+					System.out.println("数字入栈为："+number.peek());
+				}else if(judgeOper(express.charAt(i+1))) //如果temp的下一个字符为 操作符
+				{
+					if(judgeOper(express.charAt(back))) //如果back指向的是操作符 则back往后移动一位
+					{
+						back++;
+					}else //否则 进行数字入栈
+					{
+						number.push(express.substring(back,i+1));
+						//System.out.println("数字入栈为："+number.peek());
+						//back = i+2;//back指向 字符的后一位
+					}
+				}			
 			}
 		}
 		while(true)
@@ -102,17 +115,32 @@ class MiddleToLast
 				number.push(oper.pop());
 			}
 		}
+	}
+	
+	public String returnRe()
+	{
+		Stack<String> result = new Stack<>();
+		String backRe = "";
 		while(true)
 		{
 			if(number.empty())
 				break;
 			else
 			{
-				System.out.println(number.peek());
+				result.push(number.pop());
 			}
 		}
-
-
+		while(true)
+		{
+			if(result.empty())
+				break;
+			else
+			{
+				backRe = backRe + result.pop() + " ";
+			}
+		}
+		System.out.println("后缀表达式为"+backRe);
+		return backRe;	
 	}
 
 	public boolean judgeOper(char temp)
@@ -138,11 +166,13 @@ class CalculatorStack
 {
 	private String expression = " ";
 	private Stack<Float> number;
+	private String word;
 
-	public CalculatorStack(String expression)
+	public CalculatorStack(String expression,String word)
 	{
 		this.expression = expression;
 	 	number = new Stack<>();
+	 	this.word = word;
 		//start();
 		secondWay();
 		
@@ -173,7 +203,7 @@ class CalculatorStack
 				}
 			}
 		}
-		System.out.printf("%s = %s\n", expression, number.pop());
+		System.out.printf("%s=%s\n", word, number.pop());
 	}
 
 	//例如: (3+4)×5-6 对应的后缀表达式就是 3 4 + 5 × 6 - , 针对后缀表达式求值步骤如下:

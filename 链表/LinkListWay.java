@@ -1,4 +1,4 @@
-﻿
+
 public class LinkListWay 
 {
 	public static void main(String[] args) 

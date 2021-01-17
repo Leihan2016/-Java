@@ -1,4 +1,4 @@
-﻿public class OneWayLinkList  
+public class OneWayLinkList  
 {
 	public static void main(String[] args) 
 	{

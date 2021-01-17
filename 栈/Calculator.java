@@ -1,4 +1,4 @@
-﻿import java.util.*;
+import java.util.*;
 //前缀表达式计算器
 public class Calculator  
 {

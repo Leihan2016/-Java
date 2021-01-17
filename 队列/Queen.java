@@ -1,4 +1,4 @@
-﻿public class Queen 
+public class Queen 
 {
 	public static void main(String[] args) 
 	{

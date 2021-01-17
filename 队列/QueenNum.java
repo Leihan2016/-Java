@@ -1,4 +1,4 @@
-﻿public class QueenNum
+public class QueenNum
 {
 	//1.以存储的数据量来判断是否队满
 	//2.存储量num = (rear - 1 - front + MaxSize) % MaxSize ;在出队后需要更新

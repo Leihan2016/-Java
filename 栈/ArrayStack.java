@@ -1,4 +1,4 @@
-﻿import java.util.*;
+import java.util.*;
 
 public class ArrayStack 
 {
@@ -15,7 +15,7 @@ public class ArrayStack
 
 
 //实际逆波兰表达式 一般会有空格
-/*1.将逆波兰表达式String 通过String[]  array = split(" ")进行分割
+/*1.将逆波兰表达式String 通过Str@ing[]  array = split(" ")进行分割
   2.通过for循环读取，正则表达式"\\d+"进行匹配入栈 符号判断 进行计算
 */
 
