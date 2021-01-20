@@ -94,7 +94,7 @@ class MiddleToLast
 					System.out.println("数字入栈为："+number.peek());
 				}else if(judgeOper(express.charAt(i+1))) //如果temp的下一个字符为 操作符
 				{
-					if(judgeOper(express.charAt(back))) //如果back指向的是操作符 则back往后移动一位
+					if(judgeOper(express.charAt( back))) //如果back指向的是操作符 则back往后移动一位
 					{
 						back++;
 					}else //否则 进行数字入栈

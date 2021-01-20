@@ -1,0 +1,130 @@
+{
+  "dns": {
+    "hosts": {
+      "domain:googleapis.cn": "googleapis.com"
+    },
+    "servers": [
+      "1.1.1.1"
+    ]
+  },
+  "inbounds": [
+    {
+      "port": 11111,
+      "protocol": "vmess",   
+      "settings": {
+        "clients": [
+          {
+            "id": "580f1514-5ac8-11eb-ae93-0242ac130002",
+            "level": 1,      
+            "alterId": 32    
+          }
+        ]
+      }
+    }
+  ],
+  "log": {
+    "loglevel": "warning"
+  },
+  "outbounds": [
+    {
+      "mux": {
+        "concurrency": -1,
+        "enabled": false
+      },
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "www.wall123.top",
+            "port": 443,
+            "users": [
+              {
+                "alterId": 1024,
+                "id": "41c08d86-1350-43e4-9f5d-fc679e8f3f97",
+                "level": 8,
+                "security": "auto"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": false,
+          "serverName": "www.wall123.top"
+        },
+        "wsSettings": {
+          "headers": {
+            "Host": "www.wall123.top"
+          },
+          "path": "/797a2b8d3c1d464/"
+        }
+      },
+      "tag": "proxy"
+    },
+    {
+      "protocol": "freedom",
+      "settings": {},
+      "tag": "direct"
+    },
+    {
+      "protocol": "blackhole",
+      "settings": {
+        "response": {
+          "type": "http"
+        }
+      },
+      "tag": "block"
+    }
+  ],
+  "policy": {
+    "levels": {
+      "8": {
+        "connIdle": 300,
+        "downlinkOnly": 1,
+        "handshake": 4,
+        "uplinkOnly": 1
+      }
+    },
+    "system": {
+      "statsOutboundUplink": true,
+      "statsOutboundDownlink": true
+    }
+  },
+  "routing": {
+    "domainStrategy": "IPIfNonMatch",
+    "rules": [
+      {
+        "domain": [
+          "domain:googleapis.cn"
+        ],
+        "outboundTag": "proxy",
+        "type": "field"
+      },
+      {
+        "ip": [
+          "geoip:private"
+        ],
+        "outboundTag": "direct",
+        "type": "field"
+      },
+      {
+        "ip": [
+          "geoip:cn"
+        ],
+        "outboundTag": "direct",
+        "type": "field"
+      },
+      {
+        "domain": [
+          "geosite:cn"
+        ],
+        "outboundTag": "direct",
+        "type": "field"
+      }
+    ]
+  },
+  "stats": {}
+}
