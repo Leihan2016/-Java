@@ -43,7 +43,7 @@ public class MiGong
 			if(board[i][j] == 0)//表示改点没有走过
 			{
 				//策略下-右-上-左
-				board[i][j] = 2;
+				board[i][j] = 2;// 这里标记可以走通 ,下 右 上 左 有一种即可走通
 				if(findWay(board, i+1, j)) 
 					return true;
 				else if(findWay(board, i, j+1))
@@ -52,7 +52,7 @@ public class MiGong
 					return true;
 				else if(findWay(board, i, j-1))
 					return true;
-				else
+				else //都走不通 标记3
 				{
 					board[i][j] = 3;
 					return false;
