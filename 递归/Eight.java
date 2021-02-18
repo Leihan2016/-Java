@@ -1,41 +1,59 @@
 public class Eight 
 {
+	static int num;//用于计数
+	int size = 8;
+	int[] queen = new int[size];//创建八个皇后
 	public static void main(String[] args) 
 	{
-		//定义棋盘大小
-		int height = 8;
-		int width = 8;
-		//定义棋盘 0 为空
-		int[][] board = new int[height][width];
-	
-		disBoard(board, height, width);
-
-		for(int i = 0; i < height; i++)
-		{
-			for(int j = 0; j < width; j++)
-			{
-				;//调用查找方法findway
-			}
-		}
-		
-	}
-	// num用来记录已经摆放多少个
-	public static boolean findWay(int[][] board, int i, int j, int num)
-	{
-		if()
+		Eight eight = new Eight();
+		eight.setQueen(0);
+		System.out.println();
+		System.out.println("正确解法共有" + num);
 	}
 
-	public static void disBoard(int[][] board, int height, int width)
+	//采用递归 放置皇后
+	private void setQueen(int n)
 	{
-		System.out.println("棋盘输出");
-		for(int i = 0; i < height; i++)
+		//如果 放置了8个，则进行一次输出，输出后进行递归
+		if(n == 8)
 		{
-			for(int j = 0; j < width; j++)
-			{
-				System.out.printf(board[i][j]+" ");
-			}
-			System.out.println();
-	
+			num++;
+			disBoard();
+			return;
 		}
+		for(int i = 1; i < size+1; i++)
+		{
+			queen[n] = i;
+			if(judge(n))
+			{
+				setQueen(n+1);
+			}
+		}
+	}
+
+
+	//用来判断放置位置是否合理，n表示第几个皇后
+	private boolean judge(int n)
+	{
+		for(int i = 0; i < n; i++)
+		{
+			//不能在同一列，列的值用数组元素的值来表示，且不能在同一斜线
+			//斜线上，上下(n-i)差1， queen[i] - queen[n]左右差1
+			if(queen[i] == queen[n] || (n - i) == Math.abs(queen[i] - queen[n]))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	//此处用来显示结果
+	private void disBoard()
+	{
+		for(int i = 0; i < size ; i++)
+		{
+			System.out.printf("%d ", queen[i]);
+		}
+		System.out.println();
 	}
 }
