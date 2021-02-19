@@ -14,15 +14,17 @@ public class Eight
 	//采用递归 放置皇后
 	private void setQueen(int n)
 	{
-		//如果 放置了8个，则进行一次输出，输出后进行递归
+		//如果 放置了8个，则进行一次输出，输出后进行递归；控制皇后
 		if(n == 8)
 		{
 			num++;
 			disBoard();
-			return;
+			return; //跳出，继续进行递归
 		}
+		//这里的for用来遍历皇后的位置
 		for(int i = 1; i < size+1; i++)
 		{
+			//将第n个皇后放在位置i，然后进行判断是否合适，合适的话继续放置，既调用setQueen，不合适换位置到i+1;
 			queen[n] = i;
 			if(judge(n))
 			{
