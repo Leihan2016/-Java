@@ -102,9 +102,4 @@ class ArrBinaryTree
 		
 	}
 
-	public void logicTree()
-	{
-		
-	}
-
 }
