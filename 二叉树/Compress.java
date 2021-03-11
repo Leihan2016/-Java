@@ -1,10 +1,11 @@
+package testJava;
 import java.util.*;
 
 public class Compress 
 {
 	public static void main(String[] args) 
 	{
-		comPress("Hhellloooo");
+		comPress("hhellloooo");
 	}
 
 	public static void comPress(String str)
@@ -18,7 +19,7 @@ public class Compress
 		for(int i = 0; i < size; i++)
 		{
 			temp = (int)str.charAt(i);
-			if(hashMap.containsKey​(temp))
+			if(hashMap.containsKey(temp))
 			{
 				hashMap.put(temp, hashMap.get(temp) + 1);
 			}else
@@ -29,8 +30,10 @@ public class Compress
 
 		//for(Integer key : hashMap.keySet()) {
         //   System.out.println("key为：" + key + "统计次数为：" + hashMap.get(key));
-        //}
-		preOrder(huffMan(hashMap));
+        //
+		Node root = huffMan(hashMap);
+		preOrder(root);
+		root.findValue(108);
 
 
 	}
@@ -90,6 +93,7 @@ class Node implements Comparable<Node>
 	public Node right;
 	public int re;
 	public int times;
+	public int reNum;
 
 	public Node(int re, int times)
 	{
@@ -121,19 +125,25 @@ class Node implements Comparable<Node>
 		}
 	}
 
-	public int findValue(int value)
+	public void findValue(int value)
 	{
-		if(this.re == value)
-			return 0;
+		if(this.re == value) {
+			System.out.println("find it" + value);
+			return ;
+		}
+
 		if(this.left != null)
 		{
-			return this.left.findValue(value);
+			reNum --;
+			System.out.println(reNum);
+			this.left.findValue(value);
 		}
 		if(this.right != null)
 		{
-			return this.right.findValue(value);
+			reNum ++;
+			System.out.println(reNum);
+			this.right.findValue(value);
 		}
-			return -1;
 	}
 
 }
