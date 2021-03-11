@@ -30,8 +30,9 @@ public class Compress
 		//for(Integer key : hashMap.keySet()) {
         //   System.out.println("key为：" + key + "统计次数为：" + hashMap.get(key));
         //}
-		
 		preOrder(huffMan(hashMap));
+
+
 	}
 
 	public static void preOrder(Node root)
@@ -65,7 +66,7 @@ public class Compress
 			Collections.sort(list);
 
 			Node left = list.get(0);
-			Node right = list.get(0);
+			Node right = list.get(1);
 
 			Node father = new Node(-1, left.times+right.times);
 			
@@ -76,7 +77,7 @@ public class Compress
 			list.remove(right);
 
 			list.add(father);
-			System.out.println("遍历");
+			System.out.println(list.size());
 		}
 
 		return list.get(0);
@@ -108,13 +109,31 @@ class Node implements Comparable<Node>
 
 	public void preOrder()
 	{
-		System.out.println("执行");
+		//System.out.println("执行");
+		printNode();
 		if(this.left != null)
 		{
-			preOrder();
+			this.left.preOrder();
 		}
-		else
-			preOrder();
+		if(this.right != null)
+		{
+			this.right.preOrder();
+		}
+	}
+
+	public int findValue(int value)
+	{
+		if(this.re == value)
+			return 0;
+		if(this.left != null)
+		{
+			return this.left.findValue(value);
+		}
+		if(this.right != null)
+		{
+			return this.right.findValue(value);
+		}
+			return -1;
 	}
 
 }
