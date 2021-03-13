@@ -9,8 +9,8 @@ public class Dui
 		//int[] data = {4,6,1,8,5,3,12,2};
 
 
-		int[] data = new int[80];
-		for (int i = 0; i < 80; i++) {
+		int[] data = new int[8000000];
+		for (int i = 0; i < 8000000; i++) {
 			data[i] = (int) (Math.random() * 8000000); // 生成一个[0, 8000000) 数
 		}
 
@@ -43,7 +43,7 @@ public class Dui
 			//System.out.println("下沉后" + Arrays.toString(data) + "size: " + (i-1));
 			//System.out.println();
 		}		
-		System.out.println("排序结果为" + Arrays.toString(data));
+		//System.out.println("排序结果为" + Arrays.toString(data));
 
 
 		Date data2 = new Date();
